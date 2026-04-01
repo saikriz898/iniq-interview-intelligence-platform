@@ -1,0 +1,50 @@
+# Node / npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Env files
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+app/api/.env
+app/web/.env
+
+# Logs
+logs/
+*.log
+*.log.*
+log.txt
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Jest / test output
+jest-html-reporters-*.html
+jest-coverage/
+.jest/
+
+# Storybook or similar (if added later)
+storybook-static/
+
+# Misc
+*.tgz
+*.bak
+*.tmp

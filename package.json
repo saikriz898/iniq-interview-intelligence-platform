@@ -1,0 +1,36 @@
+{
+  "name": "iniq-interview-intelligence-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack Interview Intelligence Platform for submitting, moderating, and browsing structured interview experiences.",
+  "scripts": {
+    "install": "npm run install:api && npm run install:web",
+    "install:api": "cd app/api && npm install",
+    "install:web": "cd app/web && npm install",
+
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "cd app/api && npm run dev",
+    "dev:web": "cd app/web && npm run dev",
+
+    "test": "npm run test:api && npm run test:web",
+    "test:api": "cd app/api && npm test",
+    "test:web": "cd app/web && npm test",
+
+    "lint": "cd app/api && npm run lint && cd ../web && npm run lint"
+  },
+  "keywords": [
+    "interview",
+    "experience",
+    "portal",
+    "react",
+    "express",
+    "mongodb",
+    "full-stack",
+    "monorepo"
+  ],
+  "author": "Sai Krishnan",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}

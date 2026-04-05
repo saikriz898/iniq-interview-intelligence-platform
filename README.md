@@ -18,7 +18,7 @@
 </div>
 
 ---
-
+ex 
 ## 📖 Table of Contents
 
 - [🌟 Overview](#-overview)
@@ -113,7 +113,7 @@ Core ideas:
 - **Moderation tools**
   - View all submissions (Pending / Approved / Rejected). [file:2]
   - Approve or reject experiences.
-  - Edit content to fix issues.
+  -he Edit content to fix issues.
   - Delete inappropriate entries. [file:2]
 
 - **Master data management**

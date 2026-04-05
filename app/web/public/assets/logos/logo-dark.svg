@@ -1,19 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" width="800" height="256">
-  <defs>
-    <linearGradient id="qGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2563EB" />
-      <stop offset="100%" stop-color="#7C3AED" />
-    </linearGradient>
-  </defs>
-  <g transform="translate(0, 0)">
-    <line x1="22" y1="28" x2="36" y2="24" stroke="url(#qGrad)" stroke-width="2" />
-    <line x1="36" y1="24" x2="30" y2="38" stroke="url(#qGrad)" stroke-width="2" />
-    <line x1="30" y1="38" x2="22" y2="28" stroke="url(#qGrad)" stroke-width="2" />
-    <circle cx="30" cy="30" r="18" fill="none" stroke="url(#qGrad)" stroke-width="8" />
-    <line x1="42" y1="42" x2="56" y2="56" stroke="url(#qGrad)" stroke-width="10" stroke-linecap="round" />
-    <circle cx="22" cy="28" r="3.5" fill="url(#qGrad)" />
-    <circle cx="36" cy="24" r="3.5" fill="url(#qGrad)" />
-    <circle cx="30" cy="38" r="3.5" fill="url(#qGrad)" />
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="64" viewBox="0 0 160 64">
+  <rect x="8" y="8" width="48" height="48" rx="14" fill="#6366F1"/>
+  <g transform="translate(18, 18)" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="14" cy="7" rx="9" ry="4"/>
+    <path d="M5 7V21M23 7V21"/>
+    <path d="M5 14C5 16.2 9 18 14 18C19 18 23 16.2 23 14"/>
+    <path d="M5 21C5 23.2 9 25 14 25C19 25 23 23.2 23 21"/>
   </g>
-  <text x="76" y="44" font-family="'Inter', 'Satoshi', 'SF Pro', sans-serif" font-weight="700" font-size="34" letter-spacing="1" fill="#FFFFFF">INIQ</text>
+  <text x="72" y="44" font-family="'Sora', 'Inter', sans-serif" font-weight="900" font-size="34" letter-spacing="-1.5" fill="#FFFFFF">INIQ</text>
 </svg>

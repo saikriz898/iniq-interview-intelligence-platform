@@ -27,6 +27,40 @@ import SystemDesignPage from '../pages/public/resources/SystemDesignPage';
 import PrivacyPolicyPage from '../pages/public/PrivacyPolicyPage';
 import TermsOfServicePage from '../pages/public/TermsOfServicePage';
 import CookiePolicyPage from '../pages/public/CookiePolicyPage';
+import UserDashboardPage from '../pages/user/UserDashboardPage';
+import SubmitExperiencePage from '../pages/user/SubmitExperiencePage';
+import MySubmissionsPage from '../pages/user/MySubmissionsPage';
+import DraftsPage from '../pages/user/DraftsPage';
+import NotificationsPage from '../pages/user/NotificationsPage';
+import ProfilePage from '../pages/user/ProfilePage';
+import SettingsPage from '../pages/user/SettingsPage';
+import SavedItemsPage from '../pages/user/SavedItemsPage';
+import SubmissionDetailsPage from '../pages/user/SubmissionDetailsPage';
+import ContinueDraftPage from '../pages/user/ContinueDraftPage';
+import EditProfilePage from '../pages/user/EditProfilePage';
+import AuditLogsPage from '../pages/user/AuditLogsPage';
+import LogDetailsPage from '../pages/user/LogDetailsPage';
+import FAQPage from '../pages/user/FAQPage';
+import SupportHubPage from '../pages/user/SupportHubPage';
+import EditSubmissionPage from '../pages/user/EditSubmissionPage';
+
+// Admin Intelligence Modules
+import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
+import ManageExperiencesPage from '../pages/admin/ManageExperiencesPage';
+import PendingReviewsPage from '../pages/admin/PendingReviewsPage';
+import ReviewSubmissionDetailsPage from '../pages/admin/ReviewSubmissionDetailsPage';
+import AdminEditExperiencePage from '../pages/admin/AdminEditExperiencePage';
+import ManageCompaniesPage from '../pages/admin/ManageCompaniesPage';
+import ManageRolesPage from '../pages/admin/ManageRolesPage';
+import AdminNotificationsPage from '../pages/admin/AdminNotificationsPage';
+import AdminProfilePage from '../pages/admin/AdminProfilePage';
+import AdminSettingsPage from '../pages/admin/AdminSettingsPage';
+import AdminRoundDetailsPage from '../pages/admin/AdminRoundDetailsPage';
+import AdminModerationReportPage from '../pages/admin/AdminModerationReportPage.jsx';
+import AdminEditProfilePage from '../pages/admin/AdminEditProfilePage.jsx';
+import AdminSecurityPage from '../pages/admin/AdminSecurityPage.jsx';
+import ManageUsersPage from '../pages/admin/ManageUsersPage.jsx';
+import PlatformAnalyticsPage from '../pages/admin/PlatformAnalyticsPage.jsx';
 
 /**
  * --- INIQ APP ROUTER ---
@@ -40,10 +74,44 @@ const AppRouter = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/dashboard" element={<UserDashboardPage />} />
+      <Route path="/submit" element={<SubmitExperiencePage />} />
+      <Route path="/my-submissions" element={<MySubmissionsPage />} />
+      <Route path="/my-submissions/:id/edit" element={<EditSubmissionPage />} />
+      <Route path="/my-submissions/:id" element={<SubmissionDetailsPage />} />
+      <Route path="/drafts" element={<DraftsPage />} />
+      <Route path="/drafts/:id" element={<ContinueDraftPage />} />
+      <Route path="/notifications" element={<NotificationsPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/profile/edit" element={<EditProfilePage />} />
+      <Route path="/settings" element={<SettingsPage />} />
+      <Route path="/settings/logs" element={<AuditLogsPage />} />
+      <Route path="/settings/logs/:id" element={<LogDetailsPage />} />
+      <Route path="/saved" element={<SavedItemsPage />} />
       <Route path="/experiences" element={<ExplorePage />} />
       <Route path="/how-it-works" element={<HowItWorksPage />} />
+      <Route path="/faq" element={<FAQPage />} />
+      <Route path="/support" element={<SupportHubPage />} />
       <Route path="/help-center" element={<HelpCenterPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      
+      {/* Admin Operations Hub */}
+      <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+      <Route path="/admin/experiences" element={<ManageExperiencesPage />} />
+      <Route path="/admin/pending" element={<PendingReviewsPage />} />
+      <Route path="/admin/pending/:id" element={<ReviewSubmissionDetailsPage />} />
+      <Route path="/admin/pending/:id/rounds/:roundIndex" element={<AdminRoundDetailsPage />} />
+      <Route path="/admin/pending/:id/report" element={<AdminModerationReportPage />} />
+      <Route path="/admin/edit/:id" element={<AdminEditExperiencePage />} />
+      <Route path="/admin/companies" element={<ManageCompaniesPage />} />
+      <Route path="/admin/roles" element={<ManageRolesPage />} />
+      <Route path="/admin/notifications" element={<AdminNotificationsPage />} />
+      <Route path="/admin/profile/edit" element={<AdminEditProfilePage />} />
+      <Route path="/admin/profile" element={<AdminProfilePage />} />
+      <Route path="/admin/security" element={<AdminSecurityPage />} />
+      <Route path="/admin/settings" element={<AdminSettingsPage />} />
+      <Route path="/admin/users" element={<ManageUsersPage />} />
+      <Route path="/admin/analytics" element={<PlatformAnalyticsPage />} />
       
       {/* Resources Hub & Modules */}
       <Route path="/resources" element={<ResourcesPage />} />

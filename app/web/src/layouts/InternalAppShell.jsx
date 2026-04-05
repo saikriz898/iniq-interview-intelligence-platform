@@ -27,11 +27,8 @@ const InternalAppShell = ({ children, title = "Platform", breadcrumb = "Home" })
   const SidebarContent = (
     <div className="flex flex-col h-full bg-surface border-r border-border py-8 px-4">
       {/* Brand Identity */}
-      <Link to="/" className="flex items-center gap-3 px-4 mb-12">
-        <div className="size-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-          <Database className="size-5 text-white" />
-        </div>
-        <span className="text-xl font-black text-content font-['Sora'] tracking-tighter">INIQ</span>
+      <Link to="/" className="flex items-center px-4 mb-12 group">
+        <img src="/assets/logos/logo-dark.svg" alt="INIQ" className="h-9 w-auto object-contain group-hover:scale-105 transition-transform" />
       </Link>
 
       {/* Navigation Groups */}

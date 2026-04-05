@@ -14,6 +14,10 @@ export const GlobalProvider = ({ children }) => {
   const [theme, setTheme] = useState("dark");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('iniq_user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   // CONTROL: Initializes the platform's premium loading sequence
   useEffect(() => {
@@ -41,6 +45,7 @@ export const GlobalProvider = ({ children }) => {
       theme, setTheme, 
       isMenuOpen, setIsMenuOpen, 
       isLoading, setIsLoading,
+      user, setUser,
       toggleTheme,
       toggleMenu
     }}>

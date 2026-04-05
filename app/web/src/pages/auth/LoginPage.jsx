@@ -4,9 +4,10 @@ import {
   ArrowLeft, CheckCircle2, Sun, Moon
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
 import InternalPreloader from '../../components/common/InternalPreloader';
+import toast, { Toaster } from 'react-hot-toast';
 
 /**
  * --- INIQ AUTH: FULL LOGIN HUB ---
@@ -16,7 +17,12 @@ const LoginPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isRemembered, setIsRemembered] = useState(false);
-  const { theme, toggleTheme, setIsLoading } = useGlobalContext();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const { theme, toggleTheme, setIsLoading, setUser } = useGlobalContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,6 +30,48 @@ const LoginPage = () => {
     }, 1800);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // DEMO AUTH LOGIC
+    setTimeout(() => {
+      if (
+        (formData.email === 'admin' && formData.password === 'admin123') ||
+        (formData.email === 'user' && formData.password === 'user123') ||
+        (formData.email === 'user1' && formData.password === 'user123')
+      ) {
+        const dummyUser = {
+          email: formData.email,
+          role: formData.email === 'admin' ? 'admin' : 'user',
+          name: formData.email === 'admin' ? 'Sai Kriz' : 
+                formData.email === 'user1' ? 'Rahul Kumar' : 'Aditi Sharma'
+        };
+        
+        setUser(dummyUser);
+        localStorage.setItem('iniq_user', JSON.stringify(dummyUser));
+        toast.success(`Welcome back, ${dummyUser.name}!`);
+        
+        setTimeout(() => {
+          setIsLoading(false);
+          if (dummyUser.role === 'admin') {
+            navigate('/admin/dashboard');
+          } else {
+            navigate('/dashboard');
+          }
+        }, 800);
+      } else {
+        setIsLoading(false);
+        toast.error('Invalid demo credentials. Use admin/admin123 or user/user123.');
+      }
+    }, 1000);
+  };
 
   return (
     <>
@@ -163,21 +211,52 @@ const LoginPage = () => {
                 <div className="h-[1px] flex-1 bg-border/40" />
               </div>
 
-              <form className="flex flex-col gap-5 px-1" onSubmit={(e) => e.preventDefault()}>
+              <Toaster 
+                position="top-center" 
+                reverseOrder={false}
+                toastOptions={{
+                  style: {
+                    background: theme === 'dark' ? '#1a1a1a' : '#fff',
+                    color: theme === 'dark' ? '#fff' : '#000',
+                    border: '1px solid var(--border)',
+                    borderRadius: '12px',
+                    fontSize: '12px',
+                    fontWeight: 'bold',
+                    fontFamily: 'Sora'
+                  }
+                }}
+              />
+              <form className="flex flex-col gap-5 px-1" onSubmit={handleSubmit}>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-text-muted/60 ml-0.5">Email Address</label>
+                  <label htmlFor="email" className="text-[10px] font-black uppercase tracking-widest text-text-muted/60 ml-0.5 pointer-events-none">Email Address</label>
                   <div className="relative group">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-text-muted/40 group-focus-within:text-primary transition-all" />
-                    <input type="email" placeholder="Enter your email" className="w-full py-3.5 pl-11 pr-6 rounded-xl bg-surface-hover border border-border focus:border-primary focus:bg-surface outline-none transition-all font-bold text-content text-sm" />
+                    <input 
+                      id="email"
+                      type="text" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter your email" 
+                      className="w-full py-3.5 pl-11 pr-6 rounded-xl bg-surface-hover border border-border focus:border-primary focus:bg-surface outline-none transition-all font-bold text-content text-sm" 
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-text-muted/60 ml-0.5">Password</label>
+                  <label htmlFor="password" className="text-[10px] font-black uppercase tracking-widest text-text-muted/60 ml-0.5 pointer-events-none">Password</label>
                   <div className="relative group">
                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-text-muted/40 group-focus-within:text-primary transition-all" />
-                    <input type={showPassword ? "text" : "password"} placeholder="Enter your password" className="w-full py-3.5 pl-11 pr-12 rounded-xl bg-surface-hover border border-border focus:border-primary focus:bg-surface outline-none transition-all font-bold text-content text-sm" />
-                    <button onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted/40 hover:text-primary transition-colors">
+                    <input 
+                      id="password"
+                      type={showPassword ? "text" : "password"} 
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      placeholder="Enter your password" 
+                      className="w-full py-3.5 pl-11 pr-12 rounded-xl bg-surface-hover border border-border focus:border-primary focus:bg-surface outline-none transition-all font-bold text-content text-sm" 
+                    />
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted/40 hover:text-primary transition-colors">
                       {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                     </button>
                   </div>

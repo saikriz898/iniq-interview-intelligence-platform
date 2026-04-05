@@ -90,17 +90,19 @@
     position: relative;
   }
 
-  /* --- [ TYPOGRAPHY ] --- */
+  /* --- [ PRESTIGE TYPOGRAPHY ] --- */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-family: 'Sora', 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.04em;
     color: var(--text);
+    text-transform: uppercase;
+    font-style: italic;
   }
 
   code,
@@ -109,14 +111,22 @@
   }
 
   button,
-  input {
-    font-family: inherit;
+  select,
+  [role="button"] {
     cursor: pointer;
   }
 
-  a {
+  a, 
+  label {
+    cursor: pointer;
     text-decoration: none;
     color: inherit;
+  }
+
+  input,
+  textarea {
+    font-family: inherit;
+    cursor: text;
   }
 }
 
@@ -231,4 +241,46 @@
   * {
     transition: none !important;
   }
+}
+
+/* --- [ SMOOTH GLOBAL MOTION ] --- */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* --- [ REFINED NEURAL SCROLLBAR ] --- */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.25) transparent;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.25);
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+  border-radius: 20px;
+}
+
+/* Fix for hanging layouts during scroll */
+.overflow-y-auto {
+  will-change: scroll-position;
 }

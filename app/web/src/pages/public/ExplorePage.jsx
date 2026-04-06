@@ -31,11 +31,169 @@ const ExplorePage = () => {
   }, [view]);
 
   // Mock Data - Emptied for real integration
-  const mainExperiences = [];
+  // Mock Data - Populated for demo
+  const mainExperiences = [
+    {
+      id: "1",
+      company: "Google",
+      logo: "https://www.vectorlogo.zone/logos/google/google-icon.svg",
+      role: "Software Development Engineer",
+      verdict: "Selected",
+      exp: "2+ YEARS",
+      overview: "Deep dive into distributed systems and advanced graph algorithms. The process was intense but highly rewarding, focusing on scalability and performance.",
+      topics: ["Graphs", "System Design", "Distributed Systems", "Concurrency"],
+      rounds: [
+        { title: "Technical Screening" },
+        { title: "Coding Round 1" },
+        { title: "Coding Round 2" },
+        { title: "System Design" },
+        { title: "Googliness & Leadership" }
+      ],
+      advice: "Focus on clean code and explain your thought process clearly. Don't rush into coding before finalizing the approach."
+    },
+    {
+      id: "2",
+      company: "Amazon",
+      logo: "https://www.vectorlogo.zone/logos/amazon/amazon-icon.svg",
+      role: "Backend Engineer (SDE II)",
+      verdict: "Selected",
+      exp: "3+ YEARS",
+      overview: "Heavy emphasis on Leadership Principles and high-level architecture. Expect a lot of 'Tell me about a time...' questions interleaved with technical depth.",
+      topics: ["HLD", "Java", "AWS", "Leadership Principles"],
+      rounds: [
+        { title: "Online Assessment" },
+        { title: "Technical Interview 1" },
+        { title: "Technical Interview 2" },
+        { title: "System Design" },
+        { title: "Bar Raiser" }
+      ],
+      advice: "Prepare your leadership principle stories thoroughly. For technical rounds, be ready to talk about trade-offs in every decision."
+    },
+    {
+      id: "3",
+      company: "Microsoft",
+      logo: "https://www.vectorlogo.zone/logos/microsoft/microsoft-icon.svg",
+      role: "SDE - Azure Core",
+      verdict: "Rejected",
+      exp: "Fresher",
+      overview: "Focused on core OS concepts, memory management, and low-level C++ details. The interviewers were very helpful but expected deep theoretical knowledge.",
+      topics: ["C++", "OS", "Memory Management", "LLD"],
+      rounds: [
+        { title: "College Screening" },
+        { title: "Coding Round" },
+        { title: "Design Round" },
+        { title: "AA Round" }
+      ],
+      advice: "Brush up on your fundamentals. OS and Networking are just as important as DSA for certain teams at Microsoft."
+    },
+    {
+      id: "4",
+      company: "Zoho",
+      logo: "https://www.vectorlogo.zone/logos/zoho/zoho-icon.svg",
+      role: "Product Developer",
+      verdict: "Selected",
+      exp: "1+ YEARS",
+      overview: "Practical problem solving and implementation speed. Rounds involved building a mini-app and optimizing it based on new requirements.",
+      topics: ["React", "Data Structures", "OOPS", "Logical Reasoning"],
+      rounds: [
+        { title: "Aptitude Round" },
+        { title: "Programming Round" },
+        { title: "Advanced Programming" },
+        { title: "Technical Interface" },
+        { title: "HR Discussion" }
+      ],
+      advice: "Focus on writing readable code quickly. Practice building small features from scratch without much boilerplate."
+    },
+    {
+      id: "5",
+      company: "Meta",
+      logo: "https://www.vectorlogo.zone/logos/facebook/facebook-icon.svg",
+      role: "Frontend Engineer",
+      verdict: "Rejected",
+      exp: "2+ YEARS",
+      overview: "Intense focus on DOM manipulation, performance optimization, and React internals. Speed in solving coding problems is critical here.",
+      topics: ["JavaScript", "React", "DOM", "Web Performance"],
+      rounds: [
+        { title: "Phone Screen" },
+        { title: "Product Architecture" },
+        { title: "Coding Round 1" },
+        { title: "Coding Round 2" },
+        { title: "Behavioral" }
+      ],
+      advice: "You need to be very fast and accurate. Practice medium to hard LeetCode problems specifically for JavaScript."
+    },
+    {
+      id: "6",
+      company: "Netflix",
+      logo: "https://www.vectorlogo.zone/logos/netflix/netflix-icon.svg",
+      role: "Senior Distributed Systems Engineer",
+      verdict: "Selected",
+      exp: "5+ YEARS",
+      overview: "Deep focus on real-world engineering challenges at massive scale. The culture interview is the most important part of the entire process.",
+      topics: ["Distributed Systems", "Scaling", "Culture", "Chaos Engineering"],
+      rounds: [
+        { title: "Recruiter Call" },
+        { title: "Technical Screen" },
+        { title: "Onsite Panel 1" },
+        { title: "Onsite Panel 2" },
+        { title: "Executive Round" }
+      ],
+      advice: "Read the Netflix Culture Memo. Don't hide your failures—they want to see how you learned from them."
+    }
+  ];
 
 
-  const selectedExps = mainExperiences.filter(e => e.verdict === 'Selected');
-  const rejectedExps = mainExperiences.filter(e => e.verdict === 'Rejected');
+
+  const [filters, setFilters] = useState({
+    company: '',
+    role: '',
+    experience: '',
+    verdict: '',
+    topics: []
+  });
+
+  const filteredExperiences = mainExperiences.filter(exp => {
+    const matchesSearch = 
+      exp.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      exp.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      exp.topics.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      exp.overview.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    const matchesCompany = !filters.company || exp.company === filters.company;
+    const matchesRole = !filters.role || exp.role.toLowerCase().includes(filters.role.toLowerCase());
+    const matchesExperience = !filters.experience || exp.exp.toUpperCase() === filters.experience.toUpperCase();
+    const matchesVerdict = !filters.verdict || exp.verdict === filters.verdict;
+    const matchesTopics = filters.topics.length === 0 || filters.topics.every(t => exp.topics.includes(t));
+    
+    return matchesSearch && matchesCompany && matchesRole && matchesExperience && matchesVerdict && matchesTopics;
+  });
+
+  const selectedExps = filteredExperiences.filter(e => e.verdict === 'Selected');
+  const rejectedExps = filteredExperiences.filter(e => e.verdict === 'Rejected');
+
+  useEffect(() => {
+    setIsEmpty(filteredExperiences.length === 0);
+  }, [filteredExperiences]);
+
+  const resetFilters = () => {
+    setSearchQuery('');
+    setFilters({
+      company: '',
+      role: '',
+      experience: '',
+      verdict: '',
+      topics: []
+    });
+  };
+
+  const toggleTopic = (topic) => {
+    setFilters(prev => ({
+      ...prev,
+      topics: prev.topics.includes(topic) 
+        ? prev.topics.filter(t => t !== topic) 
+        : [...prev.topics, topic]
+    }));
+  };
 
   // --- UI COMPONENTS ---
 
@@ -152,7 +310,7 @@ const ExplorePage = () => {
         <div className="max-w-[1280px] mx-auto px-6 pt-10">
             {/* Results Summary */}
             <div className="flex items-center justify-between pb-6 mb-8 border-b border-border/60">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-text-muted">Showing {mainExperiences.length} interview experiences</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-text-muted">Showing {filteredExperiences.length} interview experiences</span>
                 <div className="flex gap-4">
                     <span className="text-[10px] font-black uppercase tracking-widest text-green-500">Selected: {selectedExps.length}</span>
                     <span className="text-[10px] font-black uppercase tracking-widest text-red-500">Rejected: {rejectedExps.length}</span>
@@ -180,7 +338,13 @@ const ExplorePage = () => {
                                     </div>
                                     <div className="flex flex-col gap-1.5 px-1">
                                         {["Google", "Amazon", "Microsoft", "Zoho"].map((c, i) => (
-                                            <button key={i} className="text-left text-[10px] font-bold text-text-muted hover:text-primary transition-colors">{c}</button>
+                                            <button 
+                                              key={i} 
+                                              onClick={() => setFilters(prev => ({ ...prev, company: prev.company === c ? '' : c }))}
+                                              className={`text-left text-[10px] font-bold transition-colors ${filters.company === c ? 'text-primary' : 'text-text-muted hover:text-primary'}`}
+                                            >
+                                              {c}
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -189,8 +353,14 @@ const ExplorePage = () => {
                                 <div className="flex flex-col gap-3">
                                     <label className="text-[9px] font-black text-text-muted/60 uppercase tracking-widest">Role</label>
                                     <div className="flex flex-col gap-1.5 px-1">
-                                        {["SDE", "Frontend Developer", "Backend Engineer"].map((r, i) => (
-                                            <button key={i} className="text-left text-[10px] font-bold text-text-muted hover:text-primary transition-colors">{r}</button>
+                                        {["SDE", "Frontend", "Backend"].map((r, i) => (
+                                            <button 
+                                              key={i} 
+                                              onClick={() => setFilters(prev => ({ ...prev, role: prev.role === r ? '' : r }))}
+                                              className={`text-left text-[10px] font-bold transition-colors ${filters.role === r ? 'text-primary' : 'text-text-muted hover:text-primary'}`}
+                                            >
+                                              {r} Developer
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -200,7 +370,13 @@ const ExplorePage = () => {
                                     <label className="text-[9px] font-black text-text-muted/60 uppercase tracking-widest">Experience</label>
                                     <div className="flex flex-col gap-1.5 px-1">
                                         {["Fresher", "1+ years", "2+ years"].map((e, i) => (
-                                            <button key={i} className="text-left text-[10px] font-bold text-text-muted hover:text-primary transition-colors">{e}</button>
+                                            <button 
+                                              key={i} 
+                                              onClick={() => setFilters(prev => ({ ...prev, experience: prev.experience === e ? '' : e }))}
+                                              className={`text-left text-[10px] font-bold transition-colors ${filters.experience === e ? 'text-primary' : 'text-text-muted hover:text-primary'}`}
+                                            >
+                                              {e}
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -209,8 +385,14 @@ const ExplorePage = () => {
                                 <div className="flex flex-col gap-3">
                                     <label className="text-[9px] font-black text-text-muted/60 uppercase tracking-widest">Topics</label>
                                     <div className="flex flex-wrap gap-1.5">
-                                        {["DSA", "HLD", "LLD", "SQL"].map((t, i) => (
-                                            <button key={i} className="px-2 py-1 rounded bg-surface-hover border border-border text-[8px] font-black uppercase tracking-widest text-text-muted hover:border-primary/40 hover:text-primary">{t}</button>
+                                        {["DSA", "HLD", "LLD", "SQL", "Graphs", "React"].map((t, i) => (
+                                            <button 
+                                              key={i} 
+                                              onClick={() => toggleTopic(t)}
+                                              className={`px-2 py-1 rounded bg-surface-hover border text-[8px] font-black uppercase tracking-widest transition-all ${filters.topics.includes(t) ? 'border-primary text-primary' : 'border-border text-text-muted hover:border-primary/40 hover:text-primary'}`}
+                                            >
+                                              {t}
+                                            </button>
                                         ))}
                                     </div>
                                 </div>
@@ -219,8 +401,18 @@ const ExplorePage = () => {
                                 <div className="flex flex-col gap-3">
                                     <label className="text-[9px] font-black text-text-muted/60 uppercase tracking-widest">Verdict</label>
                                     <div className="flex gap-2">
-                                        <button className="flex-1 py-1.5 rounded-lg border border-border text-[9px] font-black uppercase text-text-muted hover:border-green-500/40">Selected</button>
-                                        <button className="flex-1 py-1.5 rounded-lg border border-border text-[9px] font-black uppercase text-text-muted hover:border-red-500/40">Rejected</button>
+                                        <button 
+                                          onClick={() => setFilters(prev => ({ ...prev, verdict: prev.verdict === 'Selected' ? '' : 'Selected' }))}
+                                          className={`flex-1 py-1.5 rounded-lg border text-[9px] font-black uppercase transition-all ${filters.verdict === 'Selected' ? 'border-green-500 text-green-500 bg-green-500/5' : 'border-border text-text-muted hover:border-green-500/40'}`}
+                                        >
+                                          Selected
+                                        </button>
+                                        <button 
+                                          onClick={() => setFilters(prev => ({ ...prev, verdict: prev.verdict === 'Rejected' ? '' : 'Rejected' }))}
+                                          className={`flex-1 py-1.5 rounded-lg border text-[9px] font-black uppercase transition-all ${filters.verdict === 'Rejected' ? 'border-red-500 text-red-500 bg-red-500/5' : 'border-border text-text-muted hover:border-red-500/40'}`}
+                                        >
+                                          Rejected
+                                        </button>
                                     </div>
                                 </div>
 
@@ -244,7 +436,7 @@ const ExplorePage = () => {
                                     </div>
                                 </div>
 
-                                <button className="flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl bg-primary text-background text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/10">
+                                <button onClick={resetFilters} className="flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl bg-primary text-background text-[10px] font-black uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/10">
                                     <RefreshCcw className="size-3" /> Reset Filters
                                 </button>
                             </div>
@@ -315,8 +507,8 @@ const ExplorePage = () => {
                                 <p className="text-text-muted font-bold text-[10px] uppercase tracking-widest opacity-60">Try adjusting your search or resetting filters.</p>
                             </div>
                              <div className="flex items-center gap-3 mt-2">
-                                <button onClick={() => setIsEmpty(false)} className="px-8 py-3.5 rounded-xl bg-primary text-background font-black uppercase text-[9px] tracking-widest shadow-lg shadow-primary/10">Reset Filters</button>
-                                <button className="px-8 py-3.5 rounded-xl bg-surface-hover text-content font-black uppercase text-[9px] tracking-widest border border-border">Explore All</button>
+                                <button onClick={resetFilters} className="px-8 py-3.5 rounded-xl bg-primary text-background font-black uppercase text-[9px] tracking-widest shadow-lg shadow-primary/10">Reset Filters</button>
+                                <button onClick={() => setSearchQuery('')} className="px-8 py-3.5 rounded-xl bg-surface-hover text-content font-black uppercase text-[9px] tracking-widest border border-border">Explore All</button>
                             </div>
                         </div>
                     )}

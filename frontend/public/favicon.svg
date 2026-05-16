@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="512" height="512">
+  <defs>
+    <linearGradient id="qGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Neural Connections -->
+  <line x1="22" y1="28" x2="36" y2="24" stroke="url(#qGrad)" stroke-width="2" />
+  <line x1="36" y1="24" x2="30" y2="38" stroke="url(#qGrad)" stroke-width="2" />
+  <line x1="30" y1="38" x2="22" y2="28" stroke="url(#qGrad)" stroke-width="2" />
+
+  <!-- Outer Magnifying Glass "Q" -->
+  <circle cx="30" cy="30" r="18" fill="none" stroke="url(#qGrad)" stroke-width="8" />
+  <line x1="42" y1="42" x2="56" y2="56" stroke="url(#qGrad)" stroke-width="10" stroke-linecap="round" />
+  
+  <!-- AI Nodes -->
+  <circle cx="22" cy="28" r="3.5" fill="url(#qGrad)" />
+  <circle cx="36" cy="24" r="3.5" fill="url(#qGrad)" />
+  <circle cx="30" cy="38" r="3.5" fill="url(#qGrad)" />
+</svg>

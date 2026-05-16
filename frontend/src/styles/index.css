@@ -1,0 +1,279 @@
+/* --- [ GOOGLE FONTS: REFINED TEXTURE ] --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+@import "tailwindcss";
+
+/* ==========================================================================
+   INIQ - REFINED DUAL-THEME SYSTEM
+   Primary: Electric Indigo (Light/Clean)
+   Secondary: Deep Neural (Dark/High-Contrast)
+   ========================================================================== */
+
+@layer base {
+
+  /* --- [ PRIMARY BASE: INDIGO ACCENT ] --- */
+  :root,
+  [data-theme="light"] {
+    --bg: #FAFAFA;         /* Neutral 50 */
+    --surface: #FFFFFF;    /* Pure White */
+    --surface-hover: #F4F4F5; /* Zinc 100 */
+    --card: rgba(0, 0, 0, 0.03);
+    --border: rgba(0, 0, 0, 0.1);
+
+    --primary: #6366F1;    /* Indigo 500 */
+    --accent: #8B5CF6;     /* Violet 500 */
+
+    --text: #09090B;       /* Zinc 950 */
+    --text-secondary: #52525B; /* Zinc 600 */
+
+    --gradient-main: linear-gradient(135deg, var(--primary), var(--accent));
+    --gradient-glow: radial-gradient(circle, color-mix(in srgb, var(--primary) 15%, transparent), transparent);
+  }
+
+  /* --- [ SECONDARY: DEEP NEURAL (DARK) ] --- */
+  [data-theme="dark"] {
+    --bg: #09090B;         /* Zinc 950 - Deep & Rich */
+    --surface: #18181B;    /* Zinc 900 */
+    --surface-hover: #27272A; /* Zinc 800 */
+    --card: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.1);
+
+    --primary: #818CF8;    /* Indigo 400 */
+    --accent: #A78BFA;     /* Violet 400 */
+
+    --text: #FAFAFA;       /* Zinc 50 */
+    --text-secondary: #A1A1AA; /* Zinc 400 */
+
+    --gradient-main: linear-gradient(135deg, var(--primary), var(--accent));
+    --gradient-glow: radial-gradient(circle, color-mix(in srgb, var(--primary) 20%, transparent), transparent);
+  }
+
+  @theme {
+    --color-primary: var(--primary);
+    --color-accent: var(--accent);
+    --color-border: var(--border);
+    --color-surface: var(--surface);
+    --color-surface-hover: var(--surface-hover);
+    --color-background: var(--bg);
+    --color-content: var(--text);
+    --color-text-muted: var(--text-secondary);
+  }
+
+  /* --- [ SYSTEM RESET & GLOBAL STYLES ] --- */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* --- [ AMBIENT BACKGROUND GLOW ] --- */
+  body {
+    background:
+      radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--primary) 8%, transparent), transparent 35%),
+      radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 35%),
+      var(--bg);
+    position: relative;
+  }
+
+  /* --- [ PRESTIGE TYPOGRAPHY ] --- */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  code,
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  button,
+  select,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  a, 
+  label {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  input,
+  textarea {
+    font-family: inherit;
+    cursor: text;
+  }
+}
+
+@layer components {
+
+  /* --- [ PREMIUM GLASS SYSTEM ] --- */
+  .bg-gradient-main {
+    background: var(--gradient-main);
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    display: block;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+  }
+
+  .animate-marquee {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  .glass {
+    backdrop-filter: blur(12px);
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+
+  .glass-strong {
+    backdrop-filter: blur(20px);
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+    border: 1px solid var(--border);
+  }
+
+  /* --- [ REUSABLE CARD UTILITIES ] --- */
+  .card-base {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: all 0.3s ease;
+  }
+
+  .glow-border {
+    position: relative;
+  }
+
+  .glow-border:hover {
+    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 10%, transparent);
+  }
+
+  /* --- [ HIGH-PERFORMANCE BUTTON ] --- */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--gradient-main);
+    color: white;
+    border-radius: 10px;
+    border: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 25%, transparent);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 40%, transparent);
+    filter: brightness(1.1);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background: var(--surface-hover);
+    border-color: var(--text-secondary);
+  }
+
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+
+  /* --- [ FORM ELEMENTS ] --- */
+  .input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    transition: all 0.2s ease;
+  }
+
+  .input-field:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent);
+  }
+
+  .label-text {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}

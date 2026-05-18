@@ -282,10 +282,10 @@ const SubmitExperiencePage = () => {
       </AnimatePresence>
       
       {/* 🚀 REDESIGNED MISSION CONTROL WRAPPER */}
-      <div className="h-full w-full flex overflow-hidden">
+      <div className="h-full w-full flex flex-col md:flex-row overflow-hidden">
         
         {/* --- LEFT PANEL: THE RADAR SIDEBAR (Clearly Separated) --- */}
-        <div className="w-72 border-r border-border/40 border-l-[3px] border-l-primary/10 bg-surface/5 flex flex-col p-10 shrink-0 relative z-20">
+        <div className="hidden md:flex w-72 border-r border-border/40 border-l-[3px] border-l-primary/10 bg-surface/5 flex-col p-10 shrink-0 relative z-20">
             <div className="flex flex-col gap-1.5 mb-10">
                 <h1 className="text-xl font-black text-content tracking-tighter italic">JOURNEY.LOG</h1>
                 <div className="flex items-center gap-1.5 ml-0.5">
@@ -344,13 +344,28 @@ const SubmitExperiencePage = () => {
             <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-accent/5 rounded-full blur-[60px] pointer-events-none opacity-15 -translate-x-1/4 translate-y-1/4" />
 
             {/* Canvas Header */}
-            <div className="h-18 border-b border-border/40 px-10 flex items-center justify-between shrink-0 bg-background/5 backdrop-blur-sm relative z-10">
+            <div className="h-18 border-b border-border/40 px-6 md:px-10 flex items-center justify-between shrink-0 bg-background/5 backdrop-blur-sm relative z-10">
                 <div className="flex flex-col">
                     <div className="flex items-center gap-2 text-[8px] font-black text-primary uppercase tracking-[0.2em] opacity-80 mb-0.5">
                         <Rocket className="size-2.5" />
                         Module Entry {currentStep}/04
                     </div>
                     <h2 className="text-base font-black text-content font-['Sora'] tracking-tight leading-none uppercase italic">{steps[currentStep-1].title}</h2>
+                    {/* Mobile Step Indicator */}
+                    <div className="flex items-center gap-1 mt-1.5 md:hidden">
+                        {[1, 2, 3, 4].map((s) => (
+                            <div 
+                                key={s} 
+                                className={`h-1 rounded-full transition-all duration-300 ${
+                                    currentStep === s 
+                                        ? 'w-5 bg-primary shadow-lg' 
+                                        : currentStep > s 
+                                            ? 'w-1.5 bg-primary/40' 
+                                            : 'w-1.5 bg-border/40'
+                                }`} 
+                            />
+                        ))}
+                    </div>
                 </div>
                 <div className="flex items-center gap-4">
                     {currentStep === 3 && (
@@ -741,7 +756,7 @@ const SubmitExperiencePage = () => {
             </div>
 
             {/* Unified Canvas Navigation */}
-            <div className="h-20 pb-4 border-t border-border/40 px-10 flex items-center justify-between shrink-0 bg-background/20 backdrop-blur-sm relative z-10">
+            <div className="h-20 pb-4 border-t border-border/40 px-6 md:px-10 flex items-center justify-between shrink-0 bg-background/20 backdrop-blur-sm relative z-10">
                 <button 
                     onClick={() => setCurrentStep(prev => Math.max(1, prev - 1))}
                     disabled={currentStep === 1}
@@ -815,7 +830,7 @@ const SuccessAnimation = () => {
                 className="w-full max-w-sm bg-surface border border-white/10 rounded-[2.5rem] p-12 shadow-[0_50px_100px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col items-center"
             >
                 {/* Holographic background noise */}
-                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('/assets/noise.svg')] bg-repeat" />
                 
                 <div className="relative z-10 w-full flex flex-col items-center">
                     <AnimatePresence mode="wait">

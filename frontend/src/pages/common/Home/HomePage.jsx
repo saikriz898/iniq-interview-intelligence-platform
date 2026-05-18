@@ -121,7 +121,7 @@ const HomePage = () => {
                   
                   {/* Holographic Overlays */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/15 via-transparent to-accent/15 pointer-events-none" />
-                  <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+                  <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('/assets/noise.svg')] bg-repeat" />
                   
                   {/* Scan Line Animation */}
                   <motion.div 

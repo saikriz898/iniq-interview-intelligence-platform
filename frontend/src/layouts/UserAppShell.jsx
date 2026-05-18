@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserNavbar from '../components/user/UserNavbar';
 import UserSidebar from '../components/user/UserSidebar';
 import ScrollTopReset from '../components/common/ScrollTopReset';
@@ -8,9 +8,11 @@ import InternalPreloader from '../components/common/InternalPreloader';
 /**
  * --- USER APP SHELL: THE INTELLIGENT HUB LAYOUT ---
  * Purpose: Full Dashboard Shell with Top Navbar + Left Sidebar.
- * Layout: Fixed Navbar + Sidebar + Scrollable Canvas.
+ * Layout: Fixed Navbar + Sidebar + Scrollable Canvas (Responsive to Mobile Drawer).
  */
 const UserAppShell = ({ theme, toggleTheme, isLoading, children, noPadding = false }) => {
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
   return (
     <div className={`flex flex-col min-h-screen relative bg-background ${noPadding ? 'h-screen overflow-hidden' : ''}`}>
       <ScrollTopReset />
@@ -39,13 +41,13 @@ const UserAppShell = ({ theme, toggleTheme, isLoading, children, noPadding = fal
       </div>
 
       {/* 1. TOP NAVBAR (Sticky) */}
-      <UserNavbar />
+      <UserNavbar onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)} />
 
       {/* 2. MAIN LAYOUT FLEX */}
       <div className="flex flex-1 pt-16 sm:pt-20">
         
-        {/* 2.1 SIDEBAR (Desktop Fixed) */}
-        <UserSidebar />
+        {/* 2.1 SIDEBAR (Desktop Fixed & Mobile Responsive Overlay) */}
+        <UserSidebar isOpen={isMobileSidebarOpen} onClose={() => setIsMobileSidebarOpen(false)} />
 
         {/* 2.2 CONTENT CANVAS (Scrollable) */}
         <main className={`flex-1 lg:ml-72 relative z-10 overflow-visible flex flex-col ${noPadding ? 'h-[calc(100vh-64px)] sm:h-[calc(100vh-80px)] overflow-hidden' : 'items-center'}`}>

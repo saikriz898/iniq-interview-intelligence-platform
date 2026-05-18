@@ -3,16 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { 
   Search, Bell, Sun, Moon, Database, ChevronDown, 
   User, Settings, LogOut, CheckCircle2, ShieldAlert,
-  Clock, Zap, ArrowRight, ExternalLink, Activity, HelpCircle
+  Clock, Zap, ArrowRight, ExternalLink, Activity, HelpCircle, Menu
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGlobalContext } from '../../context/GlobalContext';
 
 /**
  * --- USER NAVBAR: TOP BAR FOR LOGGED-IN PORTAL ---
- * Features: Search bar, Notifications Hub (Popover), Theme Toggle, Profile Dropdown.
+ * Features: Hamburger mobile trigger, Search bar, Notifications Popover, Theme Toggle, Profile.
  */
-const UserNavbar = () => {
+const UserNavbar = ({ onToggleSidebar }) => {
   const { theme, toggleTheme, user, setUser, setIsLoading } = useGlobalContext();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -36,10 +36,19 @@ const UserNavbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full h-16 sm:h-20 border-b border-border/40 bg-surface/80 backdrop-blur-md z-[120] px-6 md:px-10 flex items-center justify-between">
-      {/* 1. LEFT: LOGO */}
-      <div className="flex items-center gap-8">
-        <Link to="/" className="size-14 rounded-full border border-border bg-surface-hover/50 flex items-center justify-center overflow-hidden shadow-inner group transition-all hover:border-primary/30">
+    <nav className="fixed top-0 left-0 w-full h-16 sm:h-20 border-b border-border/40 bg-surface/80 backdrop-blur-md z-[120] px-4 sm:px-6 md:px-10 flex items-center justify-between">
+      {/* 1. LEFT: HAMBURGER & LOGO */}
+      <div className="flex items-center gap-3.5 sm:gap-6 md:gap-8">
+        {/* Hamburger Menu Trigger for Mobile/Tablet (Visible below lg) */}
+        <button 
+          onClick={onToggleSidebar}
+          className="lg:hidden size-10 rounded-xl bg-surface-hover border border-border/60 flex items-center justify-center hover:bg-primary/10 hover:border-primary/40 text-text-muted hover:text-primary transition-all active:scale-95 shrink-0"
+          aria-label="Open navigation menu"
+        >
+          <Menu className="size-5" />
+        </button>
+
+        <Link to="/" className="size-14 rounded-full border border-border bg-surface-hover/50 flex items-center justify-center overflow-hidden shadow-inner group transition-all hover:border-primary/30 shrink-0">
           <img 
             src={theme === 'dark' ? "/assets/logos/logo-dark.png" : "/assets/logos/logo.png"} 
             alt="INIQ" 
@@ -98,7 +107,7 @@ const UserNavbar = () => {
                         >
                             <div className="p-6 border-b border-border/40 flex items-center justify-between bg-surface/50 relative">
                                 {/* Active Logo with Ripple */}
-                                <div className="flex items-center gap-3.5 relative z-10">
+                                <div className="flex items-center gap-3.5 relative z-10 font-['Space_Grotesk']">
                                     <div className="relative">
                                         <div className="absolute inset-0 bg-primary/25 rounded-full blur-md animate-pulse scale-150" />
                                         <div className="size-10 rounded-[1.25rem] bg-background border border-border flex items-center justify-center relative overflow-hidden group/emblem shadow-[0_4px_15px_rgba(0,0,0,0.3)]">
@@ -112,8 +121,8 @@ const UserNavbar = () => {
                                             <div className="absolute inset-0 bg-primary/5 group-hover/emblem:bg-transparent transition-all" />
                                         </div>
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-content leading-none font-['Space_Grotesk']">Tactical Feed</span>
+                                    <div className="flex flex-col font-['Space_Grotesk']">
+                                        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-content leading-none">Tactical Feed</span>
                                         <div className="flex items-center gap-1.5 opacity-40 mt-1.5">
                                             <div className="size-1 rounded-full bg-primary animate-ping" />
                                             <span className="text-[8px] font-bold text-text-secondary uppercase tracking-[0.2em]">Node Status: Active</span>
@@ -128,7 +137,7 @@ const UserNavbar = () => {
 
                             <div className="max-h-[340px] overflow-y-auto custom-scrollbar scroll-smooth">
                                 {quickNotifications.map((notif) => (
-                                    <div key={notif.id} className="p-4 hover:bg-surface-hover/50 transition-colors border-b border-border/10 flex items-start gap-3 cursor-pointer group">
+                                    <div key={notif.id} className="p-4 hover:bg-surface-hover/50 transition-colors border-b border-border/10 flex items-start gap-3 cursor-pointer group text-left">
                                         <div className={`size-8 rounded-lg flex items-center justify-center shrink-0 border ${
                                             notif.type === 'approved' ? 'bg-emerald-500/5 border-emerald-500/10 text-emerald-500' :
                                             notif.type === 'rejected' ? 'bg-red-500/5 border-red-500/10 text-red-500' :
@@ -171,7 +180,7 @@ const UserNavbar = () => {
             onClick={() => { setIsProfileOpen(!isProfileOpen); setIsNotificationsOpen(false); }}
             className="flex items-center gap-3 p-1 pr-3 rounded-xl bg-surface-hover border border-border hover:border-primary/40 transition-all group"
           >
-            <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-accent p-0.5 overflow-hidden">
+            <div className="size-8 rounded-lg bg-gradient-to-br from-primary to-accent p-0.5 overflow-hidden shrink-0">
               <div className="size-full rounded-[6px] bg-background flex items-center justify-center overflow-hidden">
                 {user?.profilePicture ? (
                     <img src={user.profilePicture} alt="User Avatar" className="size-full object-cover" />
@@ -184,7 +193,7 @@ const UserNavbar = () => {
               <span className="text-[11px] font-black text-content tracking-tight">{user?.name?.split(' ')[0] || 'User'}</span>
               <span className="text-[9px] font-bold text-text-muted opacity-60 uppercase tracking-widest">{user?.role || 'Member'}</span>
             </div>
-            <ChevronDown className={`size-3 text-text-muted transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`size-3 text-text-muted transition-transform shrink-0 ${isProfileOpen ? 'rotate-180' : ''}`} />
           </button>
 
           <AnimatePresence>

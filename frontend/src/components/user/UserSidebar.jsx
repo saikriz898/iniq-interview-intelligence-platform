@@ -2,22 +2,23 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, PlusCircle, ListChecks, FileText, Bookmark, 
-  User, Settings, LogOut, ChevronRight, Bell, HelpCircle, LifeBuoy, Activity
+  User, Settings, LogOut, ChevronRight, Bell, HelpCircle, LifeBuoy, Activity, X
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useGlobalContext } from '../../context/GlobalContext';
 
 /**
  * --- USER SIDEBAR: PRIMARY NAVIGATION FOR LOGGED-IN PORTAL ---
- * Features: Glossy active indicators, grouped links, user identity summary.
+ * Features: Responsive overlay drawer for mobile, desktop fixed layout.
  */
-const UserSidebar = () => {
+const UserSidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, setUser, setIsLoading } = useGlobalContext();
 
   const handleLogout = () => {
     setIsLoading(true);
+    if (onClose) onClose();
     setTimeout(() => {
       setUser(null);
       localStorage.removeItem('iniq_user');
@@ -41,13 +42,26 @@ const UserSidebar = () => {
     { label: 'Browse Experiences', path: '/experiences', icon: FileText },
   ];
 
-  return (
-    <aside className="fixed top-16 sm:top-20 left-0 bottom-0 w-64 md:w-72 border-r border-border/40 bg-surface/50 backdrop-blur-md z-[100] hidden lg:flex flex-col overflow-hidden">
-      
+  const sidebarContent = (
+    <div className="size-full flex flex-col bg-surface/80 lg:bg-transparent backdrop-blur-3xl lg:backdrop-blur-none">
+      {/* 0. HEADER FOR MOBILE ONLY */}
+      <div className="flex items-center justify-between p-6 pb-2 lg:hidden border-b border-border/10">
+        <div className="flex items-center gap-2">
+          <div className="size-2 rounded-full bg-primary animate-pulse" />
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">System Hub</span>
+        </div>
+        <button 
+          onClick={onClose}
+          className="size-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-text-muted hover:text-primary active:scale-90 transition-all"
+        >
+          <X className="size-4" />
+        </button>
+      </div>
+
       {/* 1. LINK CANVAS (No Scroll - Optimized for Height) */}
-      <div className="flex-1 flex flex-col p-4 px-3.5 pb-2 overflow-hidden">
+      <div className="flex-1 flex flex-col p-4 px-3.5 pb-2 overflow-y-auto lg:overflow-hidden custom-scrollbar">
         {/* 1.1 PRIMARY NAVIGATION */}
-        <div className="flex flex-col gap-1 mb-4 shrink-0">
+        <div className="flex flex-col gap-1 mb-4 shrink-0 font-['Space_Grotesk']">
             <span className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted opacity-40 px-4 mb-1.5">Main Menu</span>
             {mainItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -55,6 +69,7 @@ const UserSidebar = () => {
                 <Link
                 key={item.path}
                 to={item.path}
+                onClick={onClose}
                 className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all group relative ${
                     isActive 
                     ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm' 
@@ -75,7 +90,7 @@ const UserSidebar = () => {
         </div>
 
         {/* 1.2 ACCOUNT */}
-        <div className="flex flex-col gap-1 mb-4 shrink-0">
+        <div className="flex flex-col gap-1 mb-4 shrink-0 font-['Space_Grotesk']">
             <span className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted opacity-40 px-4 mb-1.5">Account</span>
             {accountItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -83,6 +98,7 @@ const UserSidebar = () => {
                 <Link
                 key={item.path}
                 to={item.path}
+                onClick={onClose}
                 className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all group relative ${
                     isActive 
                     ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm' 
@@ -103,7 +119,7 @@ const UserSidebar = () => {
         </div>
 
         {/* 1.3 DISCOVERY */}
-        <div className="flex flex-col gap-1 mb-0 shrink-0">
+        <div className="flex flex-col gap-1 mb-0 shrink-0 font-['Space_Grotesk']">
             <span className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted opacity-40 px-4 mb-1.5">Discovery</span>
             {helpItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -111,6 +127,7 @@ const UserSidebar = () => {
                 <Link
                 key={item.path}
                 to={item.path}
+                onClick={onClose}
                 className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all group relative ${
                     isActive 
                     ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm' 
@@ -137,7 +154,7 @@ const UserSidebar = () => {
             {/* User Profile Card */}
             <div 
               className="flex items-center gap-3 p-3 rounded-2xl bg-surface/50 border border-border/40 group hover:border-primary/40 transition-all cursor-pointer"
-              onClick={() => navigate('/profile')}
+              onClick={() => { if (onClose) onClose(); navigate('/profile'); }}
             >
                 <div className="size-11 rounded-xl bg-gradient-to-br from-primary to-accent p-0.5 shadow-lg group-hover:shadow-primary/20 transition-all">
                     <div className="size-full rounded-[10px] bg-background flex items-center justify-center overflow-hidden">
@@ -165,11 +182,44 @@ const UserSidebar = () => {
                 <LogOut className="size-3.5 transition-transform group-hover:-translate-x-0.5" />
                 Sign Out Protocol
             </button>
-
         </div>
       </div>
+    </div>
+  );
 
-    </aside>
+  return (
+    <>
+      {/* A. DESKTOP FIXED SIDEBAR */}
+      <aside className="fixed top-16 sm:top-20 left-0 bottom-0 w-64 md:w-72 border-r border-border/40 bg-surface/50 backdrop-blur-md z-[100] hidden lg:flex flex-col overflow-hidden">
+        {sidebarContent}
+      </aside>
+
+      {/* B. MOBILE DRAWER SIDEBAR */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-[150] lg:hidden">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={onClose}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            {/* Sliding Panel */}
+            <motion.aside
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="absolute left-0 top-0 bottom-0 w-[280px] sm:w-[320px] bg-background border-r border-border/40 shadow-2xl flex flex-col overflow-hidden"
+            >
+              {sidebarContent}
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

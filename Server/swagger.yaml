@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: INIQ Interview Intelligence API
+  version: 1.0.0
+  description: Backend API documentation for INIQ
+servers:
+  - url: http://localhost:5000/api
+    description: Local development server
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                name:
+                  type: string
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Bad request
+  /auth/login:
+    post:
+      summary: Login user
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User logged in successfully
+        '401':
+          description: Invalid credentials
+  /ai/chat:
+    post:
+      summary: Get AI interview feedback
+      tags:
+        - AI
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+      responses:
+        '200':
+          description: AI response generated
+  /experiences/approved:
+    get:
+      summary: Get all approved interview experiences
+      tags:
+        - Experiences
+      responses:
+        '200':
+          description: List of experiences
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

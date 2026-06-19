@@ -1,12 +1,12 @@
 # INIQ - Interview Intelligence Platform
 
-A full-stack interview preparation platform with separate frontend and backend architecture.
+A full-stack interview preparation platform with separate Client and Server architecture.
 
 ## 📁 Project Structure
 
 ```
 internship part-2/
-├── backend/              # Node.js + Express + MongoDB API
+├── Server/              # Node.js + Express + MongoDB API
 │   ├── config/          # Database configuration
 │   ├── controllers/     # Route controllers
 │   ├── middleware/      # Auth & rate limiting
@@ -17,7 +17,7 @@ internship part-2/
 │   ├── server.js        # Entry point
 │   └── package.json
 │
-├── frontend/            # React + Vite + TailwindCSS
+├── Client/            # React + Vite + TailwindCSS
 │   ├── public/          # Static assets
 │   ├── src/
 │   │   ├── components/  # Reusable components
@@ -47,18 +47,18 @@ internship part-2/
 
    Or manually:
    ```bash
-   # Install backend dependencies
-   cd backend
+   # Install Server dependencies
+   cd Server
    npm install
 
-   # Install frontend dependencies
-   cd ../frontend
+   # Install Client dependencies
+   cd ../Client
    npm install
    ```
 
-2. **Configure Backend Environment:**
+2. **Configure Server Environment:**
    
-   Edit `backend/.env`:
+   Edit `Server/.env`:
    ```env
    PORT=5000
    MONGODB_URI=mongodb://localhost:27017/iniq
@@ -72,27 +72,27 @@ internship part-2/
 ```bash
 npm run dev
 ```
-This starts both backend (port 5000) and frontend (port 3000) concurrently.
+This starts both Server (port 5000) and Client (port 3000) concurrently.
 
 #### Option 2: Run Separately
 
-**Terminal 1 - Backend:**
+**Terminal 1 - Server:**
 ```bash
-cd backend
+cd Server
 npm start
 ```
-Backend runs on: http://localhost:5000
+Server runs on: http://localhost:5000
 
-**Terminal 2 - Frontend:**
+**Terminal 2 - Client:**
 ```bash
-cd frontend
+cd Client
 npm run dev
 ```
-Frontend runs on: http://localhost:3000
+Client runs on: http://localhost:3000
 
 ## 🔧 Configuration
 
-### Backend (Port 5000)
+### Server (Port 5000)
 - **Database:** MongoDB at `mongodb://localhost:27017/iniq`
 - **CORS:** Enabled for `http://localhost:3000`
 - **API Routes:**
@@ -100,7 +100,7 @@ Frontend runs on: http://localhost:3000
   - `/api/auth/login` - User login
   - `/api/ai/chat` - AI chat (protected)
 
-### Frontend (Port 3000)
+### Client (Port 3000)
 - **API Proxy:** Configured to proxy `/api/*` to `http://localhost:5000`
 - **Build Tool:** Vite
 - **Styling:** TailwindCSS v4
@@ -114,14 +114,14 @@ For testing purposes:
 
 ## 🛠️ Technology Stack
 
-### Backend
+### Server
 - Node.js & Express.js
 - MongoDB & Mongoose
 - JWT Authentication
 - bcrypt for password hashing
 - Rate limiting & request queuing
 
-### Frontend
+### Client
 - React 19
 - Vite 8
 - TailwindCSS 4
@@ -131,7 +131,7 @@ For testing purposes:
 
 ## 📦 Key Features
 
-- ✅ Separate frontend/backend architecture
+- ✅ Separate Client/Server architecture
 - ✅ JWT-based authentication
 - ✅ MongoDB integration
 - ✅ CORS enabled
@@ -181,14 +181,14 @@ Headers: `Authorization: Bearer <token>`
 
 ### MongoDB Connection Issues
 - Ensure MongoDB is running: `mongod`
-- Check connection string in `backend/.env`
+- Check connection string in `Server/.env`
 
 ### Port Already in Use
-- Backend: Change `PORT` in `backend/.env`
-- Frontend: Change port in `frontend/vite.config.js`
+- Server: Change `PORT` in `Server/.env`
+- Client: Change port in `Client/vite.config.js`
 
 ### CORS Errors
-- Verify frontend URL in `backend/server.js` CORS config
+- Verify Client URL in `Server/server.js` CORS config
 - Ensure both servers are running
 
 ## 📄 License

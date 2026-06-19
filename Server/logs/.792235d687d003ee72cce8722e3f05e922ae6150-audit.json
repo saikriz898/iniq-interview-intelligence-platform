@@ -1,0 +1,50 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\.792235d687d003ee72cce8722e3f05e922ae6150-audit.json",
+    "files": [
+        {
+            "date": 1781828865239,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-05.log",
+            "hash": "b9c82255a8ea59d34df79c4e13f3848560b3adbbff0fbd838629961a05c46564"
+        },
+        {
+            "date": 1781829016776,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-06.log",
+            "hash": "fb5ee89bc784d01512354bf243e1c95c8487fdca053a7d353566c26ed36455a0"
+        },
+        {
+            "date": 1781839872893,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-09.log",
+            "hash": "5b9259f58a2c5dc7c0e009dd0465ff741cb91341657b84a7853d2e11e7f5ad55"
+        },
+        {
+            "date": 1781847676762,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-11.log",
+            "hash": "0e788d63534f428f76c53641d96a0228bec037c848ec3fdec0e7322ec23cfe54"
+        },
+        {
+            "date": 1781850609176,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-12.log",
+            "hash": "dcb91e5a9ef90b7f448b79ce2fb3b6ad53c4423934b5fea67dda5e380c12134a"
+        },
+        {
+            "date": 1781854895909,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-13.log",
+            "hash": "2f911c27bd2b6ac258a4192fadec5271a64e819f3508d8c7400531f8baa59229"
+        },
+        {
+            "date": 1781861329486,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-14.log",
+            "hash": "fcdbd1c607a0689e92de5b7a3e6555d214148af994750cb2e055db5b1bceadbd"
+        },
+        {
+            "date": 1781874384015,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\error-2026-06-19-18.log",
+            "hash": "381ff56e03121608a8cc3f74504be062f4facfe57ebb7eda98ed36a1535244aa"
+        }
+    ],
+    "hashType": "sha256"
+}

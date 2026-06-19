@@ -1,0 +1,70 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\.d95ea8cbc78a9eb1ce38a90fdf2d0fd5760e31d7-audit.json",
+    "files": [
+        {
+            "date": 1781828865237,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-05.log",
+            "hash": "7523ead9cd88382a7a3294e295e07d53e8bb583a0cb09bf462287518dd6948f5"
+        },
+        {
+            "date": 1781829016774,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-06.log",
+            "hash": "6a79b334c52bffd8e77b26240f3033e6ec738284504a1e40f2d1d2aba38e1057"
+        },
+        {
+            "date": 1781833077882,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-07.log",
+            "hash": "209ec680750d1b0873afd7874a0833b3f2092c6907cc4077ed3849ae3275577c"
+        },
+        {
+            "date": 1781839872891,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-09.log",
+            "hash": "32bd71dc9ab08189e4b7adcf1a9074ef47182acc09316015879e3863870fb496"
+        },
+        {
+            "date": 1781843426762,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-10.log",
+            "hash": "3561aa175bbc2d9035a521fdb154baf6310c04920bd9b99e6857698646088867"
+        },
+        {
+            "date": 1781847488929,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-11.log",
+            "hash": "a28d076603da83763a4bf597cd27bd39c666ae5a213286643c3c751697db9ce1"
+        },
+        {
+            "date": 1781850609175,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-12.log",
+            "hash": "a896d4c17d9207817c04ac0ec01da4b0772ac1de3ec924dc31c3d941a766226b"
+        },
+        {
+            "date": 1781854342703,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-13.log",
+            "hash": "209babd5ed889ae4762594fa4d1e7f42d679aa0f7cd1b7ad7622a5b3c2b306f4"
+        },
+        {
+            "date": 1781861329484,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-14.log",
+            "hash": "51f832c6a71ebe4db3706899a424bc3062a35d3d321c8ee0dc6cb6981d04b626"
+        },
+        {
+            "date": 1781861422654,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-15.log",
+            "hash": "d06756cd066e1340f195a4c44d0ca32985ebdcf47b4c72c6e2d9dd99d8b55d4d"
+        },
+        {
+            "date": 1781874384013,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-18.log",
+            "hash": "b10a41ca8b2ce506e483e81e79273297aeb10ae386d8bd6a66ffcc0e3c5d47eb"
+        },
+        {
+            "date": 1781876158340,
+            "name": "D:\\internship\\iniq-interview-intelligence-platform\\Server\\logs\\application-2026-06-19-19.log",
+            "hash": "a36e5ebaa342b4f8eb7d0d8a5720ecfdbdfdcbb41f9840adbc44012397f32f00"
+        }
+    ],
+    "hashType": "sha256"
+}
